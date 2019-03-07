@@ -20,12 +20,13 @@
     return self;
 }
 
-- (instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color inset:(UIEdgeInsets)inset {
+- (instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color inset:(UIEdgeInsets)inset title:(NSString *)title {
     if (self = [super init]) {
         self.text = text;
         self.size = size;
         self.color = color;
         self.imageInsets = inset;
+        self.title = title;
     }
     return self;
 }
@@ -34,8 +35,8 @@
     return [[TBCityIconInfo alloc] initWithText:text size:size color:color];
 }
 
-+ (instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color inset:(UIEdgeInsets)inset {
-    return [[TBCityIconInfo alloc] initWithText:text size:size color:color inset:inset];
++ (instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color inset:(UIEdgeInsets)inset title:(NSString *)title {
+    return [[TBCityIconInfo alloc] initWithText:text size:size color:color inset:inset title:title];
 }
 
 @end

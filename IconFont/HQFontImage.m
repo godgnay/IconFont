@@ -61,7 +61,7 @@
 + (UIImage *)iconWithName:(NSString*)name fontSize:(CGFloat)size color:(UIColor*)color inset:(UIEdgeInsets)inset withBackgroundColor:(UIColor*)backgroundColor
 {
     NSString *code = [self nameToUnicode:name];
-    TBCityIconInfo *info = [TBCityIconInfo iconInfoWithText:code size:size color:color inset:inset];
+    TBCityIconInfo *info = [TBCityIconInfo iconInfoWithText:code size:size color:color inset:inset title:@""];
     if (backgroundColor) {
         info.backgroundColor = backgroundColor;
     }

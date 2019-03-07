@@ -14,6 +14,7 @@
 
 + (UIImage *)iconWithInfo:(TBCityIconInfo *)info
 {
+    BOOL hasTitle = info.title.length > 0 && [info.title respondsToSelector:@selector(drawAtPoint:withAttributes:)];
     CGFloat w1 = info.size - info.imageInsets.left - info.imageInsets.right;
     CGFloat w2 = info.size - info.imageInsets.top - info.imageInsets.bottom;
     CGFloat size = MIN(w1, w2);
@@ -23,12 +24,18 @@
     UIFont *font = info.fontName ?
         [TBCityIconFont fontWithSize:realSize withFontName:info.fontName] :
         [TBCityIconFont fontWithSize:realSize];
-    
-    UIGraphicsBeginImageContext(CGSizeMake(imageSize, imageSize));
+    CGFloat tOffset = 8.0;
+    CGFloat tTitleSize = info.size+8.0;
+    CGRect tBounds = CGRectMake(0.0, 0.0, imageSize, imageSize);
+    UIFont *titleFont = [UIFont boldSystemFontOfSize:tTitleSize];
+    if (hasTitle) {
+        tBounds = CGRectMake(0.0, 0.0, imageSize, imageSize+tTitleSize+tOffset+2.0);
+    }
+    UIGraphicsBeginImageContext(tBounds.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (info.backgroundColor) {
         [info.backgroundColor set];
-        UIRectFill(CGRectMake(0.0, 0.0, imageSize, imageSize)); //fill the background
+        UIRectFill(tBounds); //fill the background
     }
     CGPoint point = CGPointMake(info.imageInsets.left*scale, info.imageInsets.top*scale);
  
@@ -45,6 +52,11 @@
         CGContextSetFillColorWithColor(context, info.color.CGColor);
         [info.text drawAtPoint:point withFont:font];
 #pragma clang pop
+    }
+    
+    if (hasTitle) {
+        CGSize titleSize = [info.title boundingRectWithSize:tBounds.size options: (NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName : titleFont} context:nil].size;
+        [info.title drawInRect:(CGRect){(imageSize-titleSize.width)*0.5, imageSize+tOffset, titleSize} withAttributes:@{NSFontAttributeName:titleFont, NSForegroundColorAttributeName: info.color}];
     }
     
     UIImage *image = [UIImage imageWithCGImage:UIGraphicsGetImageFromCurrentImageContext().CGImage scale:scale orientation:UIImageOrientationUp];

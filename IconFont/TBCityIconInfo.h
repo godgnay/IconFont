@@ -14,10 +14,11 @@
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, strong) NSString *fontName;
+@property (nonatomic, strong) NSString *title;
 
 - (instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color;
 - (instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color inset:(UIEdgeInsets)inset;
 + (instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color;
-+ (instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color inset:(UIEdgeInsets)inset;
++ (instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color inset:(UIEdgeInsets)inset title:(NSString *)title;
 
 @end
