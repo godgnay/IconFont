@@ -25,7 +25,7 @@
         [TBCityIconFont fontWithSize:realSize withFontName:info.fontName] :
         [TBCityIconFont fontWithSize:realSize];
     CGFloat tOffset = 8.0;
-    CGFloat tTitleSize = info.size+8.0;
+    CGFloat tTitleSize = imageSize*0.45;
     CGRect tBounds = CGRectMake(0.0, 0.0, imageSize, imageSize);
     UIFont *titleFont = [UIFont boldSystemFontOfSize:tTitleSize];
     if (hasTitle) {
